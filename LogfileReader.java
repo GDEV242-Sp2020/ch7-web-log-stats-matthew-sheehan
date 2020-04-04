@@ -37,6 +37,7 @@ public class LogfileReader implements Iterator<LogEntry>
         this("weblog.txt");
     }
     
+    
     /**
      * Create a LogfileReader that will supply data
      * from a particular log file. 
