@@ -124,8 +124,8 @@ public class LogAnalyzer
     
     /**
      * Excercise 7.18 add method busiestTwoHours returns the busiest 2 hours
-     * @return int busiest 2 hour  chunk
-     *
+     * 
+     *prints the busiest two hours
      */
     public void busiestTwoHours()
     {
@@ -173,4 +173,8 @@ public class LogAnalyzer
         return quietestHour;
         
     }
+    
+    /**
+     * Excercisse 7.19 add further methods that compare days month and year data.
+     */
 }
