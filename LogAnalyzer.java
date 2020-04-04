@@ -1,13 +1,22 @@
 /**
  * Read web server data and analyse hourly access patterns.
  * 
- * @author David J. Barnes and Michael Kölling.
- * @version    2016.02.29
+ * @author: Matthew Sheehan
+ * @authorOriginal: David J. Barnes and Michael Kölling.
+ * @version   2020 04.02
  */
 public class LogAnalyzer
 {
     // Where to calculate the hourly access counts.
     private int[] hourCounts;
+    
+    /*
+    *7.2
+    private Person[] people;
+    *7.3
+    private boolean[] vacant;
+    */
+   
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
     
