@@ -89,7 +89,7 @@ public class LogEntry implements Comparable<LogEntry>
      */
     public int getDay()
     {
-        return dataValues[MONTH];
+        return dataValues[DAY];
     }    
     
     /**
