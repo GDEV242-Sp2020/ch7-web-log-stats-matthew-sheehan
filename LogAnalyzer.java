@@ -62,6 +62,7 @@ public class LogAnalyzer
      */
     public void printHourlyCounts()
     {
+        analyzeHourlyData();
         System.out.println("Hr: Count");
         for(int hour = 0; hour < hourCounts.length; hour++) {
             System.out.println(hour + ": " + hourCounts[hour]);
@@ -122,6 +123,34 @@ public class LogAnalyzer
     }
     
     /**
+     * Excercise 7.18 add method busiestTwoHours returns the busiest 2 hours
+     * @return int busiest 2 hour  chunk
+     *
+     */
+    public void busiestTwoHours()
+    {
+        analyzeHourlyData();
+        
+        int busiest1st = -1;
+        int lastHour = -1;
+        int total =0;
+        int entries =0;
+        
+       for(int i = 0; i < hourCounts.length; i++) {
+           total = hourCounts[i]+lastHour;
+            if(total>entries){
+                
+            entries =total;
+            busiest1st = i;
+        }
+        lastHour = hourCounts[i];
+        }
+        System.out.println("The busiest time during hours " +(busiest1st - 1) + " and " 
+                            + busiest1st +", with " +entries+ " entries.");
+
+    }
+    
+    /**
      * Excercise 7.16 add a method quietestHour that returns the quietest hour
      * @return int quietest hour
      */
@@ -133,13 +162,14 @@ public class LogAnalyzer
         for(int i = 0; i < hourCounts.length; i++) {
 
            if(hourCounts[i]<compareHour){
+               compareHour=hourCounts[i];
                quietestHour=hourCounts[i];
                quietestHour = i;
             }      
+        }
            System.out.println("The quietest time is during hour " +quietestHour 
                                 +", with " +compareHour+ " entries.");
-                            }
-           
+  
         return quietestHour;
         
     }
