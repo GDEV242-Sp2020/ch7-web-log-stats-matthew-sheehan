@@ -9,6 +9,8 @@ public class LogAnalyzer
 {
     // Where to calculate the hourly access counts.
     private int[] hourCounts;
+    private int[] dayCounts;
+    private int[] monthCounts;
     
     /*
     *7.2
@@ -26,6 +28,8 @@ public class LogAnalyzer
     public LogAnalyzer()
     {
         hourCounts = new int[24];
+        dayCounts = new int[31];
+        monthCounts = new int[12];
         // Create the reader with specific File Name to obtain the data.
         reader = new LogfileReader();
     }
@@ -39,6 +43,8 @@ public class LogAnalyzer
     public LogAnalyzer(String logFileName)
     {
         hourCounts = new int[24];
+        dayCounts = new int[31];
+        monthCounts = new int[12];
         // Create the reader with specific File Name to obtain the data.
         reader = new LogfileReader(logFileName);
     }
@@ -177,4 +183,101 @@ public class LogAnalyzer
     /**
      * Excercisse 7.19 add further methods that compare days month and year data.
      */
+    /**
+     * Analyze the daily access data from the log file.
+     */
+    public void analyzeDailyData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int day = entry.getDay();
+            dayCounts[day]++;
+        }
+    } 
+    
+    /**
+     * Add a method to compare busiest Day
+     *
+     *@returns int busiestDay.
+     */
+    public int busiestDay()
+    {
+        analyzeDailyData();
+        
+        int busiestDay = -1;
+        int entries =0;
+        
+       for(int i = 0; i < dayCounts.length; i++) {
+
+            if(dayCounts[i]>entries){
+            entries = dayCounts[i];
+            busiestDay = i;
+        }
+        }
+        System.out.println("The busiest day is " +busiestDay 
+                                +", with " +entries+ " entries.");
+        return busiestDay;
+    }
+        
+        
+    /**
+     * Analyze the Monthly access data from the log file.
+     */
+    public void analyzeMonthlyData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int month = entry.getMonth();
+            monthCounts[month]++;
+        }
+    } 
+    
+    /**
+     *A method to compare busiest Month
+     *
+     *@returns int busiestMonth.
+     */
+    public int busiestMonth()
+    {
+        analyzeMonthlyData();
+        
+        int busiestMonth = -1;
+        int entries =0;
+        
+       for(int i = 0; i < monthCounts.length; i++) {
+
+            if(monthCounts[i]>entries){
+            entries = monthCounts[i];
+            busiestMonth = i;
+        }
+        }
+        System.out.println("The busiest day is " +busiestMonth
+                                +", with " +entries+ " entries.");
+        return busiestMonth;
+    }
+      
+        
+    // /**
+     // * Excercise 7.19 add a method to compare busiest Year
+     // *
+     // *@returns int busiestYear.
+     // */
+    // public int busiestYear()
+    // {
+        // analyzeHourlyData();
+        
+        // int busiestHour = -1;
+        // int entries =0;
+        
+       // for(int i = 0; i < hourCounts.length; i++) {
+
+            // if(hourCounts[i]>entries){
+            // entries = hourCounts[i];
+            // busiestHour = i;
+        // }
+        // }
+        // System.out.println("The busiest time is during hour " +busiestHour 
+                                // +", with " +entries+ " entries.");
+        // return busiestHour;
+    // }
 }
