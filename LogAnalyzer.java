@@ -115,7 +115,7 @@ public class LogAnalyzer
         }
         }
         System.out.println("The busiest is " +busiestHour 
-                                + "at that time there are" +data);
+                                + "at that time there are" +data+ "accesses.");
         return busiestHour;
     }
     
@@ -141,7 +141,7 @@ public class LogAnalyzer
         lastHour = hourCounts[i];
       }
         System.out.println("The busiest times are " +(busiest_day - 1) + " and " 
-                            + busiest_day +", with " +data);
+                            + busiest_day +", with " +data + "accesses.");
 
     }
     
@@ -163,7 +163,7 @@ public class LogAnalyzer
             }      
         }
            System.out.println("The quietest time is during hour " +quietestHour 
-                                +", with " +compareHour);
+                                +", with " +compareHour + "accesses.");
   
         return quietestHour;
         
@@ -203,7 +203,7 @@ public class LogAnalyzer
         }
         }
         System.out.println("The busiest day is " +busiestDay 
-                                +", with " +data);
+                                +", with " +data+"accesses.");
         return busiestDay;
     }
         
@@ -226,6 +226,77 @@ public class LogAnalyzer
      *@returns int busiestMonth.
      */
     public int busiestMonth()
+    {
+        int busiestMonth = -1;
+        int data =0;
+        analyzeMonthlyData();
+       for(int i = 0; i < monthCounts.length; i++) {
+           if(monthCounts[i] > data){
+            data = monthCounts[i];
+            busiestMonth = i;
+        }
+        }
+        System.out.println("The busiest day is " +busiestMonth
+                                +", with " +data+ "accesses.");
+        return busiestMonth;
+    }
+    
+    /**
+     *A method to compare quitest Month
+     *
+     *@returns int quietestMonth.
+     */
+    public int quietestMonth()
+    {
+        int quietestMonth = -1; 
+        int compareMonth = monthCounts[busiestMonth()];
+        analyzeMonthlyData();
+        for(int i = 0; i < monthCounts.length; i++) {
+            if(monthCounts[i] < compareMonth){
+               compareMonth=monthCounts[i];
+               quietestMonth = monthCounts[i];
+               quietestMonth = i;
+            }      
+        }
+        System.out.println("The quietest time over the year is  " +quietestMonth 
+                                +", with " +compareMonth + "accesses.");
+        return quietestMonth;
+        
+    }
+    
+    
+    
+    
+    /**
+     *A method to find the total accesses per month
+     *
+     *@returns int busiestMonth.
+     */
+    public int totalAccessesPerMonth()
+    {
+        int busiestMonth = -1;
+        int data =0;
+        int i;
+        int totalAccesses = 0;
+        analyzeMonthlyData();
+       for(i = 0; i < monthCounts.length; i++) {
+        if(monthCounts[i] > data){
+            data = monthCounts[i];
+            busiestMonth = i;
+            ++totalAccesses; 
+        }
+        }
+        System.out.println("For the month of" + monthCounts+ " There were a total of"+ totalAccesses);
+        return totalAccesses;
+    }
+ 
+    
+    /**
+     *A method to compare busiest Month
+     *
+     *@returns int busiestMonth.
+     */
+    public int averageAccessesPerMonth()
     {
         int busiestMonth = -1;
         int data =0;
