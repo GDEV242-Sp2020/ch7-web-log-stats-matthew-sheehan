@@ -103,7 +103,7 @@ public class LogfileReader implements Iterator<LogEntry>
      */
     public LogEntry next()
     {
-        return dataIterator.next();
+        return dataIterator.next(); 
     }
     
     /**

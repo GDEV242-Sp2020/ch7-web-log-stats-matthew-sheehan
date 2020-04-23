@@ -1,9 +1,9 @@
 /**
  * Read web server data and analyse hourly access patterns.
  * 
- * @author: Matthew Sheehan
+ * @author: Marcelle Tamegnon
  * @authorOriginal: David J. Barnes and Michael Kölling.
- * @version   2020 04.02
+ * @version   2020 04.23
  */
 public class LogAnalyzer
 {
@@ -11,15 +11,8 @@ public class LogAnalyzer
     private int[] hourCounts;
     private int[] dayCounts;
     private int[] monthCounts;
+    private int[] yearCounts;
     
-    /*
-    *7.2
-    private Person[] people;
-    *7.3
-    private boolean[] vacant;
-    */
-   
-    // Use a LogfileReader to access the data.
     private LogfileReader reader;
     
     /**
@@ -92,15 +85,15 @@ public class LogAnalyzer
      */
     public int numberOfAccessess()
     {
-       int total = 0;
+       int counts = 0;
         
-       for(int value : hourCounts) {
+        for(int num_hours : hourCounts) {
 
-            if(value > 0)
-            total+= value; //add total of entries counted
-            //entries = hourCounts[hour];
+            if(num_hours  > 0)
+            counts = counts + num_hours; 
+            
         }
-        return total;
+        return counts;
     }
     
     /**
@@ -111,20 +104,18 @@ public class LogAnalyzer
      */
     public int busiestHour()
     {
-        analyzeHourlyData();
-        
         int busiestHour = -1;
-        int entries =0;
-        
-       for(int i = 0; i < hourCounts.length; i++) {
-
-            if(hourCounts[i]>entries){
-            entries = hourCounts[i];
+        int data =0;
+        int i;
+        analyzeHourlyData();
+       for(i = 0; i < hourCounts.length; i++) {
+           if(hourCounts[i] > data){
+            data = hourCounts[i];
             busiestHour = i;
         }
         }
-        System.out.println("The busiest time is during hour " +busiestHour 
-                                +", with " +entries+ " entries.");
+        System.out.println("The busiest is " +busiestHour 
+                                + "at that time there are" +data);
         return busiestHour;
     }
     
@@ -135,24 +126,22 @@ public class LogAnalyzer
      */
     public void busiestTwoHours()
     {
-        analyzeHourlyData();
-        
-        int busiest1st = -1;
+        int busiest_day = -1;
         int lastHour = -1;
-        int total =0;
-        int entries =0;
-        
-       for(int i = 0; i < hourCounts.length; i++) {
-           total = hourCounts[i]+lastHour;
-            if(total>entries){
+        int counts = 0;
+        int data  =0;
+        analyzeHourlyData();
+         for(int i = 0; i < hourCounts.length; i++) {
+            counts = hourCounts[i]+lastHour;
+             if(counts > data){
                 
-            entries =total;
-            busiest1st = i;
+            data =counts;
+            busiest_day = i;
         }
         lastHour = hourCounts[i];
-        }
-        System.out.println("The busiest time during hours " +(busiest1st - 1) + " and " 
-                            + busiest1st +", with " +entries+ " entries.");
+      }
+        System.out.println("The busiest times are " +(busiest_day - 1) + " and " 
+                            + busiest_day +", with " +data);
 
     }
     
@@ -162,7 +151,7 @@ public class LogAnalyzer
      */
     public int quietestHour()
     {
-        int quietestHour = -1; // give it a maximum to be reduced to
+        int quietestHour = -1; 
         int compareHour = hourCounts[busiestHour()];
         analyzeHourlyData();
         for(int i = 0; i < hourCounts.length; i++) {
@@ -174,7 +163,7 @@ public class LogAnalyzer
             }      
         }
            System.out.println("The quietest time is during hour " +quietestHour 
-                                +", with " +compareHour+ " entries.");
+                                +", with " +compareHour);
   
         return quietestHour;
         
@@ -202,20 +191,19 @@ public class LogAnalyzer
      */
     public int busiestDay()
     {
-        analyzeDailyData();
-        
         int busiestDay = -1;
-        int entries =0;
-        
-       for(int i = 0; i < dayCounts.length; i++) {
+        int data = 0;
+        int i;
+        analyzeDailyData();
+       for(i = 0; i < dayCounts.length; i++) {
 
-            if(dayCounts[i]>entries){
-            entries = dayCounts[i];
+            if(dayCounts[i] > data){
+            data = dayCounts[i];
             busiestDay = i;
         }
         }
         System.out.println("The busiest day is " +busiestDay 
-                                +", with " +entries+ " entries.");
+                                +", with " +data);
         return busiestDay;
     }
         
@@ -239,45 +227,18 @@ public class LogAnalyzer
      */
     public int busiestMonth()
     {
-        analyzeMonthlyData();
-        
         int busiestMonth = -1;
-        int entries =0;
-        
+        int data =0;
+        analyzeMonthlyData();
        for(int i = 0; i < monthCounts.length; i++) {
 
-            if(monthCounts[i]>entries){
-            entries = monthCounts[i];
+            if(monthCounts[i]>data){
+            data = monthCounts[i];
             busiestMonth = i;
         }
         }
         System.out.println("The busiest day is " +busiestMonth
-                                +", with " +entries+ " entries.");
+                                +", with " +data);
         return busiestMonth;
     }
-      
-        
-    // /**
-     // * Excercise 7.19 add a method to compare busiest Year
-     // *
-     // *@returns int busiestYear.
-     // */
-    // public int busiestYear()
-    // {
-        // analyzeHourlyData();
-        
-        // int busiestHour = -1;
-        // int entries =0;
-        
-       // for(int i = 0; i < hourCounts.length; i++) {
-
-            // if(hourCounts[i]>entries){
-            // entries = hourCounts[i];
-            // busiestHour = i;
-        // }
-        // }
-        // System.out.println("The busiest time is during hour " +busiestHour 
-                                // +", with " +entries+ " entries.");
-        // return busiestHour;
-    // }
 }
