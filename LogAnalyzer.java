@@ -114,10 +114,36 @@ public class LogAnalyzer
             busiestHour = i;
         }
         }
-        System.out.println("The busiest is " +busiestHour 
-                                + "at that time there are" +data+ "accesses.");
+        System.out.println("The busiest hour is " +busiestHour 
+                                + "with " +data+ " accesses.");
         return busiestHour;
     }
+    
+    
+    /**
+     * Excercise 7.16 add a method quietestHour that returns the quietest hour
+     * @return int quietest hour
+     */
+    public int quietestHour()
+    {
+        int quietestHour = 0; 
+        int i, data =0;
+        int compareHour = hourCounts[busiestHour()]++;
+        analyzeHourlyData();
+        for(i = 0; i < hourCounts.length; i++) {
+           if(hourCounts[i] < compareHour){
+            compareHour= hourCounts[i];
+            quietestHour = i;
+        }
+        }
+        
+           System.out.println("The quietest time is during hour " +quietestHour 
+                                +", with " +compareHour + "accesses.");
+  
+        return quietestHour;
+        
+    }
+    
     
     /**
      * Excercise 7.18 add method busiestTwoHours returns the busiest 2 hours
@@ -134,40 +160,17 @@ public class LogAnalyzer
          for(int i = 0; i < hourCounts.length; i++) {
             counts = hourCounts[i]+lastHour;
              if(counts > data){
-                
-            data =counts;
+            data = counts;
             busiest_day = i;
         }
         lastHour = hourCounts[i];
       }
-        System.out.println("The busiest times are " +(busiest_day - 1) + " and " 
+         System.out.println("The busiest times are " +(busiest_day - 1) + " and " 
                             + busiest_day +", with " +data + "accesses.");
 
     }
     
-    /**
-     * Excercise 7.16 add a method quietestHour that returns the quietest hour
-     * @return int quietest hour
-     */
-    public int quietestHour()
-    {
-        int quietestHour = -1; 
-        int compareHour = hourCounts[busiestHour()];
-        analyzeHourlyData();
-        for(int i = 0; i < hourCounts.length; i++) {
-
-           if(hourCounts[i]<compareHour){
-               compareHour=hourCounts[i];
-               quietestHour=hourCounts[i];
-               quietestHour = i;
-            }      
-        }
-           System.out.println("The quietest time is during hour " +quietestHour 
-                                +", with " +compareHour + "accesses.");
-  
-        return quietestHour;
-        
-    }
+    
     
     /**
      * Excercisse 7.19 add further methods that compare days month and year data.
@@ -216,7 +219,7 @@ public class LogAnalyzer
         while(reader.hasNext()) {
             LogEntry entry = reader.next();
             int month = entry.getMonth();
-            monthCounts[month]++;
+            monthCounts[month-1]++;
         }
     } 
     
@@ -236,7 +239,7 @@ public class LogAnalyzer
             busiestMonth = i;
         }
         }
-        System.out.println("The busiest day is " +busiestMonth
+        System.out.println("The busiest month is " +busiestMonth
                                 +", with " +data+ "accesses.");
         return busiestMonth;
     }
@@ -248,7 +251,7 @@ public class LogAnalyzer
      */
     public int quietestMonth()
     {
-        int quietestMonth = -1; 
+        int quietestMonth = 0; 
         int compareMonth = monthCounts[busiestMonth()];
         analyzeMonthlyData();
         for(int i = 0; i < monthCounts.length; i++) {
@@ -264,10 +267,7 @@ public class LogAnalyzer
         
     }
     
-    
-    
-    
-    /**
+     /**
      *A method to find the total accesses per month
      *
      *@returns int busiestMonth.
@@ -283,7 +283,7 @@ public class LogAnalyzer
         if(monthCounts[i] > data){
             data = monthCounts[i];
             busiestMonth = i;
-            ++totalAccesses; 
+            totalAccesses = totalAccesses + data; 
         }
         }
         System.out.println("For the month of" + monthCounts+ " There were a total of"+ totalAccesses);
@@ -308,7 +308,7 @@ public class LogAnalyzer
             busiestMonth = i;
         }
         }
-        System.out.println("The busiest day is " +busiestMonth
+        System.out.println("The busiest month is " +busiestMonth
                                 +", with " +data);
         return busiestMonth;
     }
