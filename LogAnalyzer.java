@@ -68,6 +68,7 @@ public class LogAnalyzer
         }
     }
     
+    
     /**
      * Print the lines of data read by the LogfileReader
      */
@@ -251,7 +252,7 @@ public class LogAnalyzer
      */
     public int quietestMonth()
     {
-        int quietestMonth = 0; 
+        int quietestMonth = -1; 
         int compareMonth = monthCounts[busiestMonth()];
         analyzeMonthlyData();
         for(int i = 0; i < monthCounts.length; i++) {
@@ -298,18 +299,21 @@ public class LogAnalyzer
      */
     public int averageAccessesPerMonth()
     {
-        int busiestMonth = -1;
+        int averageAccesses=0,totalAccesses =0;
         int data =0;
-        analyzeMonthlyData();
-       for(int i = 0; i < monthCounts.length; i++) {
-
-            if(monthCounts[i]>data){
+        int i;
+       analyzeMonthlyData();
+       for(i = 0; i < monthCounts.length; i++) {
+        if(monthCounts[i] > data){
             data = monthCounts[i];
-            busiestMonth = i;
+            //busiestMonth = i;
+            totalAccesses = totalAccesses + data; 
         }
         }
-        System.out.println("The busiest month is " +busiestMonth
-                                +", with " +data);
-        return busiestMonth;
+        averageAccesses = totalAccesses / data;
+        System.out.println("The average number of accesses per month is "
+        +averageAccesses);
+                                
+        return averageAccesses;
     }
 }
